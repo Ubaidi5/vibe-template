@@ -4,6 +4,18 @@
 
 Based on your requirements and the research into existing solutions like React Email and Ant Design's layout components, we'll create a React-like framework specifically for email templates. This framework will focus on compatibility with email clients while providing a developer-friendly API.
 
+## React-like Approach with Simplifications
+
+Unlike React, our framework will be much simpler since email templates ultimately generate static HTML:
+
+- **No Virtual DOM**: Since emails are static, we don't need React's Virtual DOM or reconciliation
+- **No State Management**: We'll skip complex state management as emails don't have interactivity
+- **No Lifecycle Methods**: No need for component lifecycle hooks
+- **Simpler Compilation**: One-time compilation to HTML instead of runtime rendering
+- **Focus on Template Syntax**: We'll prioritize the JSX-like syntax and component model, not performance optimizations
+
+This simplification allows us to focus solely on providing a great developer experience for email template creation without the overhead of a full React implementation.
+
 ## Core Components
 
 ### 1. Row and Column Components (instead of View)

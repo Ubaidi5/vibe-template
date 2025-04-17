@@ -1,0 +1,37 @@
+{
+  "name": "email-template-framework",
+  "version": "0.1.0",
+  "description": "A React-like framework for creating email templates",
+  "main": "index.js",
+  "bin": {
+    "email-template": "./template-cli.js"
+  },
+  "scripts": {
+    "test": "node test.js",
+    "test:jsx": "node jsx-test.js",
+    "build": "node src/compiler/build.js",
+    "dev": "node src/compiler/build.js --watch",
+    "preview": "node template-cli.js preview",
+    "build:template": "node template-cli.js build",
+    "render": "node template-cli.js render"
+  },
+  "keywords": [
+    "email",
+    "template",
+    "framework",
+    "react",
+    "jsx"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/plugin-transform-react-jsx": "^7.22.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.22.5"
+  },
+  "devDependencies": {
+    "chokidar": "^3.5.3",
+    "fs-extra": "^11.1.1"
+  }
+}
