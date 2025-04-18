@@ -1,4 +1,25 @@
 {
-  "userName": "Default User",
-  "userAvatar": "https://via.placeholder.com/150"
+  "userName": "John Doe",
+  "userAvatar": "https://via.placeholder.com/150",
+  "companyName": "Template Framework Co.",
+  "articles": [
+    {
+      "title": "New Feature: Responsive Emails",
+      "summary": "We've added support for responsive layouts in our email templates. Now your emails will look great on any device!",
+      "imageUrl": "https://via.placeholder.com/300x200/0066cc/ffffff?text=Responsive+Design",
+      "linkUrl": "#feature1"
+    },
+    {
+      "title": "Email Client Compatibility",
+      "summary": "Our framework now checks compatibility with popular email clients like Gmail, Outlook, and Apple Mail to ensure your templates work everywhere.",
+      "imageUrl": "https://via.placeholder.com/300x200/ff6600/ffffff?text=Email+Clients",
+      "linkUrl": "#feature2"
+    },
+    {
+      "title": "Hot Reloading Support",
+      "summary": "The new development environment supports hot reloading, making it faster than ever to develop and test your email templates.",
+      "imageUrl": "https://via.placeholder.com/300x200/00cc66/ffffff?text=Hot+Reloading",
+      "linkUrl": "#feature3"
+    }
+  ]
 }

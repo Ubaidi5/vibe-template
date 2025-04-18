@@ -4,13 +4,15 @@
   "description": "A React-like framework for creating email templates",
   "main": "index.js",
   "bin": {
-    "email-template": "./template-cli.js"
+    "email-template": "./template-cli.js",
+    "email-template-dev": "./src/dev/start.js"
   },
   "scripts": {
     "test": "node test.js",
     "test:jsx": "node jsx-test.js",
     "build": "node src/compiler/build.js",
-    "dev": "node src/compiler/build.js --watch",
+    "dev": "node src/dev/start.js",
+    "dev:watch": "nodemon src/dev/start.js",
     "preview": "node template-cli.js preview",
     "build:template": "node template-cli.js build",
     "render": "node template-cli.js render"
@@ -31,7 +33,11 @@
     "@babel/plugin-transform-modules-commonjs": "^7.22.5"
   },
   "devDependencies": {
+    "browser-sync": "^2.29.3",
     "chokidar": "^3.5.3",
-    "fs-extra": "^11.1.1"
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.1",
+    "http-server": "^14.1.1",
+    "nodemon": "^3.0.1"
   }
 }

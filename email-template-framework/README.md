@@ -23,6 +23,8 @@ The framework is built on a hierarchy of components:
 - **Responsive**: Support for different layouts at different screen sizes
 - **Simple API**: Intuitive props similar to React components
 - **JSX Support**: Write templates using JSX syntax
+- **Development Environment**: Hot reloading and email client compatibility testing
+- **Email Client Compatibility**: Checks compatibility with popular email clients
 
 ## Current Implementation
 
@@ -31,9 +33,27 @@ The current implementation includes:
 1. Basic component classes that render to HTML
 2. Support for responsive layouts using data attributes
 3. Email-compatible HTML generation
-4. Example of creating a welcome email
-5. JSX compiler for writing templates in JSX
-6. Command-line interface for building and previewing templates
+4. JSX compiler for writing templates in JSX
+5. Development server with hot reloading
+6. Email client compatibility checking
+7. Command-line interface for building and previewing templates
+
+## Development Environment
+
+The framework includes a powerful development environment:
+
+```bash
+# Start the development server with hot reloading
+npm run dev
+```
+
+The development environment provides:
+
+- **Hot Reloading**: See changes instantly as you edit templates
+- **Device Preview**: Test how emails look on different devices (desktop, tablet, mobile)
+- **Template Selection**: Switch between different email templates
+- **Email Client Compatibility**: Check templates for compatibility issues
+- **Detailed Reports**: See information about email client support and recommendations
 
 ## Usage with JSX
 
@@ -88,6 +108,9 @@ npm run preview welcome
 
 # Render a template with custom data
 npm run render welcome
+
+# Start the development server
+npm run dev
 ```
 
 ## JavaScript API Example
@@ -132,9 +155,9 @@ npm run test:jsx # Test the JSX compiler
 
 ## Next Steps
 
-1. **Development Environment**: Create a preview server with hot reloading
-2. **Media Queries**: Implement responsive design compilation
-3. **Additional Components**: Add more specialized components
+1. **Media Queries**: Implement responsive design compilation
+2. **Additional Components**: Add more specialized components
+3. **Export Options**: Add more export options (ZIP, inline CSS, etc.)
 
 ## License
 
