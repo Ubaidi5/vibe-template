@@ -11,6 +11,7 @@ class Email extends BaseComponent {
    * @param {string} [props.previewText] - Text displayed in email clients as preview
    * @param {string} [props.width='600px'] - Max width of the email container
    * @param {string} [props.backgroundColor='#ffffff'] - Email background color
+   * @param {boolean} [props.fluid=true] - Whether to use fluid responsive layouts
    * @param {Object} [props.style] - Additional CSS styles for the email body
    */
   constructor(props = {}) {
@@ -22,6 +23,7 @@ class Email extends BaseComponent {
       previewText: "",
       width: "600px",
       backgroundColor: "#ffffff",
+      fluid: true,
       style: {},
       ...props,
     };
@@ -49,6 +51,9 @@ class Email extends BaseComponent {
         mso-table-lspace: 0pt !important;
         mso-table-rspace: 0pt !important;
       }
+      div {
+        line-height: inherit;
+      }
       img {
         -ms-interpolation-mode: bicubic;
         border: 0;
@@ -56,14 +61,51 @@ class Email extends BaseComponent {
         line-height: 100%;
         outline: none;
         text-decoration: none;
+        max-width: 100%;
       }
-      @media only screen and (max-width: 480px) {
-        .mobile-full-width {
+      .email-container {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      .fluid-container {
+        max-width: 100% !important;
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      /* Overrides for mobile phones */
+      @media screen and (max-width: 525px) {
+        .email-container {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .responsive-table {
           width: 100% !important;
         }
-        .mobile-padding {
-          padding-left: 10px !important;
-          padding-right: 10px !important;
+        .fluid-container {
+          width: 100% !important;
+          max-width: 100% !important;
+          padding: 0 !important;
+        }
+        .stack-column,
+        .stack-column-center {
+          display: block !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          direction: ltr !important;
+        }
+        .stack-column-center {
+          text-align: center !important;
+        }
+        .center-on-mobile {
+          text-align: center !important;
+          display: block !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          float: none !important;
+        }
+        img.center-on-mobile {
+          margin-left: auto !important;
+          margin-right: auto !important;
         }
       }
     `
@@ -76,7 +118,7 @@ class Email extends BaseComponent {
    * @returns {string} Complete HTML for the email
    */
   render() {
-    const { title, previewText, width, backgroundColor } = this.props;
+    const { title, previewText, width, backgroundColor, fluid } = this.props;
 
     // Apply default and custom styles to the body
     const bodyStyles = {
@@ -91,6 +133,11 @@ class Email extends BaseComponent {
 
     const styleString = this.generateStyleString(bodyStyles);
 
+    // Add fluid responsive class to container if enabled
+    const containerClass = fluid
+      ? "email-container fluid-container"
+      : "email-container";
+
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -98,6 +145,8 @@ class Email extends BaseComponent {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="date=no">
         <meta name="x-apple-disable-message-reformatting">
         <title>${title}</title>
         <style>
@@ -107,6 +156,7 @@ class Email extends BaseComponent {
         <style type="text/css">
           table {border-collapse:collapse;border-spacing:0;margin:0;}
           div, td {padding:0;}
+          .email-container {width:${width} !important;}
         </style>
         <![endif]-->
         <!--[if !mso]><!-->
@@ -122,10 +172,11 @@ class Email extends BaseComponent {
         <!-- Email preview text -->
         <div style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
           ${previewText || title}
+          &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;
         </div>
         
         <!-- Email content -->
-        <div style="max-width:${width};margin:0 auto;">
+        <div class="${containerClass}" style="max-width:${width};margin:0 auto;">
           ${this.renderChildren()}
         </div>
         

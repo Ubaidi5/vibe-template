@@ -1,4 +1,10 @@
 const BaseComponent = require("./BaseComponent");
+const {
+  generateFluidStyles,
+  generateMsoStyles,
+  calculateWidth,
+  closeMsoStyles,
+} = require("../utils/responsive");
 
 /**
  * Column Component - Creates a vertical column within a Row component
@@ -39,41 +45,28 @@ class Column extends BaseComponent {
   }
 
   /**
-   * Generate responsive width styles for media queries
-   * This will be used later by our compiler to add media queries
-   * @returns {Object} Media query styles
+   * Generate responsive width styles using fluid approach
+   * @returns {Object} Combined styles for responsive layout
    */
   getResponsiveStyles() {
-    const responsive = {};
+    // Calculate the default width percentage
+    const defaultWidth = (this.props.span / 24) * 100;
 
-    const { sm, md, lg } = this.props;
-
-    if (sm !== undefined) {
-      responsive.sm = { width: this.calculateWidth(sm) };
-    }
-
-    if (md !== undefined) {
-      responsive.md = { width: this.calculateWidth(md) };
-    }
-
-    if (lg !== undefined) {
-      responsive.lg = { width: this.calculateWidth(lg) };
-    }
-
-    return responsive;
+    // Generate fluid styles for responsive behavior
+    return generateFluidStyles(this.props, defaultWidth);
   }
 
   /**
-   * Render the column component as an HTML table cell
+   * Render the column component as an HTML table cell with fluid layout
    * @returns {string} HTML representation of the column
    */
   render() {
     const { gutterSpacing } = this.props;
 
-    // Apply default and custom styles
+    // Apply default, responsive, and custom styles
     const columnStyles = {
       verticalAlign: "top",
-      width: this.calculateWidth(),
+      ...this.getResponsiveStyles(),
       ...this.props.style,
     };
 
@@ -84,17 +77,19 @@ class Column extends BaseComponent {
 
     const styleString = this.generateStyleString(columnStyles);
 
-    // Add data attributes for responsive sizes
-    const responsiveData = [];
-    if (this.props.sm) responsiveData.push(`data-sm="${this.props.sm}"`);
-    if (this.props.md) responsiveData.push(`data-md="${this.props.md}"`);
-    if (this.props.lg) responsiveData.push(`data-lg="${this.props.lg}"`);
+    // Generate MSO (Outlook) specific markup for better compatibility
+    const msoOpen = generateMsoStyles(this.props);
+    const msoClose = closeMsoStyles();
 
-    const responsiveAttrs = responsiveData.join(" ");
-
+    // Generate the column content using a div for better fluid scaling
+    // We're using a div inside the td for better support in various clients
     return `
-      <td style="${styleString}" ${responsiveAttrs}>
-        ${this.renderChildren()}
+      <td style="padding: 0;">
+        ${msoOpen}
+        <div style="${styleString}">
+          ${this.renderChildren()}
+        </div>
+        ${msoClose}
       </td>
     `
       .trim()
