@@ -9,6 +9,10 @@ const Column = require("./Column");
 const Text = require("./Text");
 const Image = require("./Image");
 const Email = require("./Email");
+const Button = require("./Button");
+const Divider = require("./Divider");
+const Spacer = require("./Spacer");
+const Container = require("./Container");
 
 module.exports = {
   BaseComponent,
@@ -17,4 +21,8 @@ module.exports = {
   Text,
   Image,
   Email,
+  Button,
+  Divider,
+  Spacer,
+  Container,
 };
